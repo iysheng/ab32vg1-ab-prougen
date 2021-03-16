@@ -11,12 +11,13 @@ void hal_uart_mspinit(struct uart_handle *huart)
 {
     struct gpio_init gpio_init;
 
+    /* 串口 0 初始化 */
     if (huart->instance == UART0_BASE) {
         gpio_init.pin       = GPIO_PIN_7;
         gpio_init.pull      = GPIO_PULLUP;
         gpio_init.dir       = GPIO_DIR_INPUT;
         gpio_init.de        = GPIO_DIGITAL;
-        gpio_init.alternate = GPIO_AF_MAP_Gx(UT0TXMAP_AF, GPIO_AF_G1) | UT0RXMAP_TX;
+        gpio_init.alternate = GPIO_AF_MAP_Gx(UT1TXMAP_AF, GPIO_AF_G1) | UT0RXMAP_TX;
         gpio_init.af_con    = GPIO_AFEN | GPIO_AFCON0 | UT0TXMAP_AF;
         hal_gpio_init(GPIOA_BASE, &gpio_init);
     } else if (huart->instance == UART1_BASE) {

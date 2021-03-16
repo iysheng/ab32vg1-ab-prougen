@@ -175,9 +175,6 @@
 /* system packages */
 
 
-/* Micrium: Micrium software products porting for RT-Thread */
-
-
 /* peripheral libraries and drivers */
 
 #define SDIO_MAX_FREQ 24000000
@@ -186,9 +183,6 @@
 
 
 /* samples: kernel and components samples */
-
-
-/* games: games run on RT-Thread console */
 
 
 /* Hardware Drivers Config */
@@ -217,8 +211,6 @@
 #define BSP_USING_TIM
 #define BSP_USING_TIM1
 #define BSP_USING_ONCHIP_RTC
-#define BSP_USING_ADC
-#define BSP_USING_ADC0
 
 /* Board extended module Drivers */
 

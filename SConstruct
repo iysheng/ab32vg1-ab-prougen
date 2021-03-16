@@ -8,6 +8,7 @@ else:
     RTT_ROOT = os.path.normpath(os.getcwd() + '/../../..')
 
 # set RTT_ROOT
+# 如果不存在这个目录，那么修改 RTT_ROOT 为 rt-thread
 if not os.getenv("RTT_ROOT"): 
     RTT_ROOT="rt-thread"
 
@@ -36,11 +37,13 @@ Export('rtconfig')
 
 SDK_ROOT = os.path.abspath('./')
 
+# 添加库路径的前缀
 if os.path.exists(SDK_ROOT + '/libraries'):
     libraries_path_prefix = SDK_ROOT + '/libraries'
 else:
     libraries_path_prefix = os.path.dirname(SDK_ROOT) + '/libraries'
 
+# 添加 CPU 库路径前缀
 if os.path.exists(SDK_ROOT + '/libcpu'):
     libcpu_path_prefix = SDK_ROOT + '/libcpu'
 else:

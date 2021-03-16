@@ -220,6 +220,7 @@ int rtthread_startup(void)
     /* board level initialization
      * NOTE: please initialize heap inside board initialization.
      */
+    /* 板级初始化 */
     rt_hw_board_init();
 
     /* show RT-Thread version */

@@ -1,16 +1,24 @@
 /* Define the flash max size */
 __max_flash_size = 1024k;
 
+/* 数据段的 ram 大小 */
 __data_ram_size = 8k;
+/* 栈区的 ram 大小 */
 __stack_ram_size = 4k;
+/* comm 段的 ram 大小（这个是通用字段吗？？？） */
 __comm_ram_size = 83k;
+/* 堆区的 ram */
 __heap_ram_size = 29k;
 
 __base = 0x10000000;
 
+/* ram 的起始地址 */
 __data_vma = 0x11000;
+/* 栈的起始地址 */
 __stack_vma = __data_vma + __data_ram_size;
+/* 通用区域的起始地址 */
 __comm_vma = __stack_vma + __stack_ram_size;
+/* 堆区的起始地址 */
 __heap_vma = __comm_vma + __comm_ram_size;
 
 __ram1_vma = 0x50000;
@@ -41,6 +49,7 @@ SECTIONS
         __rt_init_end = .;
 
         . = ALIGN(4);
+        /* c++ 初始化部分 */
         PROVIDE(__ctors_start__ = .);
         KEEP (*(SORT(.init_array.*)))
         KEEP (*(.init_array))
@@ -92,8 +101,10 @@ SECTIONS
     __irq_stack_size = __irq_stack - __irq_stack_start;
 
     .heap (NOLOAD) : {
+        /* 堆区的起始地址 */
         __heap_start = .;
         . = __heap_ram_size;
+        /* 堆区的结束地址 */
         __heap_end = .;
     } > heap
 

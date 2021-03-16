@@ -76,7 +76,9 @@ struct uart_handle
 /** @defgroup UART_Mode UART Transfer Mode
   * @{
   */
+/* TX 和 RX 分开 */
 #define UART_MODE_TX                        (0x00u)         /*!< TX mode                    */ 
+/* TX 和 RX 在一线 */
 #define UART_MODE_TX_RX                     (0x01u)         /*!< RX and TX mode             */ 
 
 /**

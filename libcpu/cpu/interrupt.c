@@ -14,6 +14,7 @@
 #include "ab32vgx.h"
 
 uint32_t irq_mask;
+/* 中断向量表 */
 void *tbl_irq_vector[IRQ_TOTAL_NUM];
 void (*cpu_irq_comm_hook)(void);
 
@@ -22,6 +23,7 @@ void set_cpu_irq_comm(void (*irq_hook)(void))
     cpu_irq_comm_hook = irq_hook;
 }
 
+/* 通用的中断处理函数入口 */
 void cpu_irq_comm_do(void)
 {
 	void (*pfnct)(void);
@@ -56,7 +58,7 @@ void rt_hw_interrupt_init(void)
 
 /**
  * @brief This function will install a interrupt service routine to a interrupt.
- * 
+ * 加载中断处理函数
  * @param vector 
  * @param handler 
  * @param param 

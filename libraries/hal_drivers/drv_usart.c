@@ -103,6 +103,7 @@ static rt_err_t ab32_control(struct rt_serial_device *serial, int cmd, void *arg
         break;
     /* enable interrupt */
     case RT_DEVICE_CTRL_SET_INT:
+        /* 清除接收中断 */
         hal_uart_clrflag(uart->handle.instance, UART_FLAG_RXPND);
         hal_uart_control(uart->handle.instance, UART_RXIT_ENABLE, HAL_ENABLE);
         break;

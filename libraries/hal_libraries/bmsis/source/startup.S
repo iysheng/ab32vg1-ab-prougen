@@ -11,17 +11,21 @@
 _start:
 
     //load comm
+	// 加载 comm 段数据
+	// 查看 link.lds 向量表在这里
     la      a0, __comm_vma
     la      a1, __comm_lma
     la      a2, __comm_size
     call    0x84044
 
     //load ram1
+	// 加载 ram1 的数据，分析 link.lds 是 rtthread 通用库的数据
     la      a0, __ram1_vma
     la      a1, __ram1_lma
     la      a2, __ram1_size
     call    0x84044
 
+	// 清 stack
     la      a0, __irq_stack_start           //Stack清成0x23
     li      a1, 0x23
     la      a2, __irq_stack_size
@@ -32,6 +36,7 @@ _start:
     sw	    zero, -1916(a5)
 
     //clear bss
+	// 清 bss
     la      a0, __bss_start
     li      a1, 0
     la      a2, __bss_size
@@ -40,10 +45,12 @@ _start:
     la      a0, __comm_vma
     sw      a0, PICADR(zero)
 
+// 跳转到 C 语言入口函数
     call    entry
 //    la      ra, __exception
 //    jr      ra
 
+// 向量表
 .section .vector, "ax"
 //    .org    0x10
 //__exception:
@@ -93,6 +100,7 @@ _start:
     j       0x84020
 #endif
 
+// 通用的中断处理函数
     .global cpu_irq_comm
 cpu_irq_comm:
     la      a5, __irq_stack

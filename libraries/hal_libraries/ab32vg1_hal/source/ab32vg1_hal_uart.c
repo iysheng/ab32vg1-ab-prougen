@@ -43,6 +43,7 @@ hal_error_t hal_uart_init(struct uart_handle *huart)
         return -HAL_ERROR;
     }
 
+    /* GPIO 初始化 */
     hal_uart_mspinit(huart);
     uart_config_all(huart);
 
@@ -150,10 +151,16 @@ void hal_uart_clrflag(hal_sfr_t uartx, uint32_t flag)
  */
 void uart_config_all(struct uart_handle *huart)
 {
+	/* 先禁用串口 */
     hal_uart_control(huart->instance, UART_MODULE_ENABLE, HAL_DISABLE);
 
+    /* 这个是在设置串口相关的时钟寄存器？？？ */
     CLKCON1 |= BIT(14);
+    /* 现在只支持这两个串口
+     * 芯片手册描述的是有三个串口
+     * */
     if (huart->instance == UART0_BASE) {
+        /* 开启对应的串口时钟使能 */
         hal_rcu_periph_clk_enable(RCU_UART0);
     } else if (huart->instance == UART1_BASE) {
         hal_rcu_periph_clk_enable(RCU_UART1);
@@ -161,11 +168,14 @@ void uart_config_all(struct uart_handle *huart)
         return; /* Not support! */
     }
 
+    /* 设置波特率 */
     hal_uart_setbaud(huart->instance, huart->init.baud);
 
+    /* 如果不是单线模式，还要使能 RX */
     if (huart->init.mode != UART_MODE_TX) {
         hal_uart_control(huart->instance, UART_RX_ENABLE, HAL_ENABLE);
     }
+    /* 使能串口设备 */
     hal_uart_control(huart->instance, UART_MODULE_ENABLE, HAL_ENABLE);
 }
 

@@ -122,8 +122,10 @@ $(TARGET): $(OBJS)
 	@echo ar $(TARGET)
 	@$(CROSS_COMPILE)ar -rv $@ $(OBJS)
 else
+# 添加依赖
 $(TARGET): $(OBJS) $(EXTERN_LIB)
 	@echo ------------------------------------------------
+	@echo ---------EXTERN_LIB=$(EXTERN_LIB)---------------
 	@echo link $(TARGET)
 	@$(CROSS_COMPILE)g++ -o $@ $(LFLAGS) $(OBJS) $(EXTERN_LIB) -lc -lm
 	@echo ------------------------------------------------

@@ -104,18 +104,24 @@ void rt_hw_systick_init(void)
 
 void rt_hw_board_init(void)
 {
+    /* 关闭看门狗 */
     WDT_DIS();
     rt_hw_systick_init();
 
 #ifdef RT_USING_HEAP
+	/*
+	 * 初始化堆区，起始地址和结束地址定义在 linl.lds 文件
+	 * */
     rt_system_heap_init(&__heap_start, &__heap_end);
 #endif
 
 #ifdef RT_USING_PIN
+	/* GPIO 设备注册 */
     rt_hw_pin_init();
 #endif // RT_USING_PIN
 
 #ifdef RT_USING_SERIAL
+    /* 串口设备初始化 */
     rt_hw_usart_init();
 #endif // RT_USING_SERIAL
 
