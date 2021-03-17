@@ -42,7 +42,7 @@
 #define RT_USING_DEVICE_OPS
 #define RT_USING_CONSOLE
 #define RT_CONSOLEBUF_SIZE 128
-#define RT_CONSOLE_DEVICE_NAME "uart0"
+#define RT_CONSOLE_DEVICE_NAME "uart1"
 #define RT_VER_NUM 0x40003
 
 /* RT-Thread Components */
@@ -99,11 +99,8 @@
 #define RT_USING_SERIAL
 #define RT_SERIAL_RB_BUFSZ 64
 #define RT_USING_HWTIMER
-#define RT_USING_I2C
-#define RT_USING_I2C_BITOPS
 #define RT_USING_PIN
 #define RT_USING_ADC
-#define RT_USING_PWM
 #define RT_USING_RTC
 #define RT_USING_SDIO
 #define RT_SDIO_STACK_SIZE 512
@@ -198,15 +195,6 @@
 
 #define BSP_USING_UART0
 #define BSP_USING_SDIO
-#define BSP_USING_I2C1
-
-/* Notice: PE3 --> 16; PE2 --> 15 */
-
-#define BSP_I2C1_SCL_PIN 16
-#define BSP_I2C1_SDA_PIN 15
-#define BSP_USING_PWM
-#define BSP_USING_T4_PWM
-#define BSP_USING_T4_PWM1
 #define BSP_USING_WDT
 #define BSP_USING_TIM
 #define BSP_USING_TIM1

@@ -157,10 +157,10 @@ static void uart_isr(int vector, void *param)
     {
         rt_hw_serial_isr(&(uart_obj[UART0_INDEX].serial), RT_SERIAL_EVENT_RX_IND);
     }
-    // if(hal_uart_getflag(UART1_BASE, UART_FLAG_RXPND))       //RX one byte finish
-    // {
-    //     rt_hw_serial_isr(&(uart_obj[UART1_INDEX].serial), RT_SERIAL_EVENT_RX_IND);
-    // }
+    if(hal_uart_getflag(UART1_BASE, UART_FLAG_RXPND))       //RX one byte finish
+    {
+        rt_hw_serial_isr(&(uart_obj[UART1_INDEX].serial), RT_SERIAL_EVENT_RX_IND);
+    }
 
     rt_interrupt_leave();
 }
@@ -188,7 +188,7 @@ int rt_hw_usart_init(void)
         uart_obj[i].config          = &uart_config[i];
         uart_obj[i].serial.ops      = &ab32_uart_ops;
         uart_obj[i].serial.config   = config;
-        uart_obj[i].serial.config.baud_rate = 1500000;
+        uart_obj[i].serial.config.baud_rate = 115200;
 
         /* register UART device */
         result = rt_hw_serial_register(&uart_obj[i].serial, uart_obj[i].config->name,
